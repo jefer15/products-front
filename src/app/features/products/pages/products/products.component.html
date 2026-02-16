@@ -1,1 +1,75 @@
-<p>products works!</p>
+<section *ngIf="!showModal" class="product-list">
+
+  <div class="product-list__top">
+    <input type="text" placeholder="Search..." (input)="onSearchChange($any($event.target).value)"
+      class="product-list__search" />
+
+    <button class="btn-primary" (click)="create()">
+      Agregar
+    </button>
+  </div>
+
+  <div class="container">
+    <div class="table-container" *ngIf="!isLoading() && !errorMessage()">
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th>Logo</th>
+            <th>Nombre del producto</th>
+            <th>Descripción</th>
+            <th>Fecha de liberación</th>
+            <th>Fecha de reestructuración</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let product of visibleProducts(); trackBy: trackById">
+            <td>
+              <div class="product-avatar">
+                {{ getInitials(product.name) }}
+              </div>
+            </td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.date_release }}</td>
+            <td>{{ product.date_revision }}</td>
+            <td class="actions">
+              <div class="menu-container">
+
+                <button class="menu-btn" (click)="toggleMenu(product.id); $event.stopPropagation()">
+                  ⋮
+                </button>
+
+                <div class="menu-dropdown" *ngIf="activeMenu === product.id">
+                  <button (click)="edit(product)">
+                    Editar
+                  </button>
+
+                  <button class="danger" (click)="openModal(product)">
+                    Eliminar
+                  </button>
+                </div>
+
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="product-list__footer">
+      <span>{{ filteredProducts().length }} Resultados</span>
+
+      <select (change)="onPageSizeChange($any($event.target).value)">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+      </select>
+    </div>
+  </div>
+</section>
+
+<app-confirm-modal *ngIf="showModal" title="Eliminar producto"
+  message="¿Está seguro que desea eliminar el producto {{ productToDelete?.name }}?" (cancel)="closeModal()"
+  (confirm)="confirmDelete()">
+</app-confirm-modal>

@@ -7,7 +7,3 @@ export interface Product {
   date_revision: string;
 }
 
-export interface ProductsResponse {
-  data: Product[];
-}
-

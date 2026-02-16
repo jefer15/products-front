@@ -1,0 +1,46 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.bank-header {
+  height: 72px;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.bank-header__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bank-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  display: block;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #1a1a1a;
+}
+
+.app-content {
+  min-height: calc(100vh - 72px);
+  background-color: #e8f0fd;
+  padding: 40px 80px;
+}
+
+@media (max-width: 768px) {
+  .app-content {
+    padding: 20px;
+  }
+}

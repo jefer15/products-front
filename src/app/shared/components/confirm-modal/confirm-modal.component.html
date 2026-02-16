@@ -1,1 +1,11 @@
-<p>confirm-modal works!</p>
+<div class="modal-backdrop">
+  <div class="modal">
+    <h3>{{ title }}</h3>
+    <p>{{ message }}</p>
+
+    <div class="modal-actions">
+      <button (click)="cancel.emit()">Cancelar</button>
+      <button class="danger" (click)="confirm.emit()">Confirmar</button>
+    </div>
+  </div>
+</div>

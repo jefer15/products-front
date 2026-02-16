@@ -1,1 +1,75 @@
-<p>product-form works!</p>
+<section class="product-form">
+  <h1>{{ isEdit ? 'Formulario de Edición' : 'Formulario de Registro' }}</h1>
+
+  <form [formGroup]="productForm">
+
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>ID</label>
+        <input formControlName="id" />
+        <small *ngIf="productForm.get('id')?.touched && productForm.get('id')?.errors">
+          <span *ngIf="productForm.get('id')?.errors?.['required']">ID requerido</span>
+          <span *ngIf="productForm.get('id')?.errors?.['minlength']">Mínimo 3 caracteres</span>
+          <span *ngIf="productForm.get('id')?.errors?.['maxlength']">Máximo 10 caracteres</span>
+          <span *ngIf="productForm.get('id')?.errors?.['idExists']">ID ya existe</span>
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label>Nombre</label>
+        <input formControlName="name" />
+        <small *ngIf="productForm.get('name')?.touched && productForm.get('name')?.invalid">
+          <span *ngIf="productForm.get('name')?.errors?.['required']">Nombre requerido</span>
+          <span *ngIf="productForm.get('name')?.errors?.['minlength']">Mínimo 6 caracteres</span>
+          <span *ngIf="productForm.get('name')?.errors?.['maxlength']">Máximo 100 caracteres</span>
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label>Descripción</label>
+        <textarea formControlName="description"></textarea>
+        <small *ngIf="productForm.get('description')?.touched && productForm.get('description')?.invalid">
+          <span *ngIf="productForm.get('description')?.errors?.['required']">Descripción requerida</span>
+          <span *ngIf="productForm.get('description')?.errors?.['minlength']">Mínimo 10 caracteres</span>
+          <span *ngIf="productForm.get('description')?.errors?.['maxlength']">Máximo 200 caracteres</span>
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label>Logo</label>
+        <input formControlName="logo" />
+        <small *ngIf="productForm.get('logo')?.touched && productForm.get('logo')?.errors">
+          <span *ngIf="productForm.get('logo')?.errors?.['required']">Logo requerido</span>
+          <span *ngIf="productForm.get('logo')?.errors?.['pattern']">Formato de URL inválido</span>
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label>Fecha Liberación</label>
+        <input type="date" formControlName="date_release" />
+        <small *ngIf="productForm.get('date_release')?.touched && productForm.get('date_release')?.errors">
+          <span *ngIf="productForm.get('date_release')?.errors?.['required']">
+            Fecha requerida
+          </span>
+          <span *ngIf="productForm.get('date_release')?.errors?.['pastDate']">
+            La fecha no puede ser menor a la actual
+          </span>
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label>Fecha Revisión</label>
+        <input type="date" formControlName="date_revision" />
+      </div>
+
+    </div>
+
+    <div class="form-actions">
+      <button *ngIf="!isEdit" type="button" class="btn-secondary" (click)="reset()">Reiniciar</button>
+      <button type="button" class="btn-primary" (click)="save()">
+        {{ isEdit ? 'Actualizar' : 'Enviar' }}
+      </button>
+    </div>
+  </form>
+</section>
